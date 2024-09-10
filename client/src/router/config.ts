@@ -1,6 +1,6 @@
 // import { lazy } from "react";
-import Login from "../components/login";
-import Register from "@/components/register";
+import Login from '../components/login';
+import Register from '@/components/register';
 
 export interface IRouter {
   name?: string;
@@ -12,11 +12,11 @@ export interface IRouter {
 
 export const router: Array<IRouter> = [
   {
-    path: "/login",
-    component: Login,
+    path: '/login',
+    component: Login
   },
   {
-    path: "/register",
-    component: Register,
-  },
+    path: '/register',
+    component: Register
+  }
 ];

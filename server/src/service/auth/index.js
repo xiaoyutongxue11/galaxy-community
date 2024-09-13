@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const Redis = require('ioredis');
-const { RespError, RespData } = require('../../utils/resp');
+const { RespError, RespData, RespSuccess } = require('../../utils/resp');
 const { CommonErrStatus, AuthErrStatus } = require('../../utils/error');
 const { Query } = require('../../utils/query');
 const { secretKey } = require('../../utils/authenticate');
@@ -57,7 +57,7 @@ const login = async (req, res, next) => {
       const sql = `UPDATE friend SET online_status = ? WHERE username = ?`;
       await Query(sql, ['online', username]);
       // 保存 token 到 redis 缓存中, 有效期为 14 天
-      await better_chat.ser(`token:${payload.username}`, token, 'EX', 60 * 60 * 24 * 14);
+      await better_chat.set(`token:${payload.username}`, token, 'EX', 60 * 60 * 24 * 14);
       return RespData(res, data);
     } else {
       return RespError(res, AuthErrStatus.USER_OR_PASS_ERR);
@@ -67,6 +67,26 @@ const login = async (req, res, next) => {
   }
 };
 
+/**
+ * 登出
+ */
+const logout = async (req, res, next) => {
+  const { username } = req.body;
+  console.log(username);
+  if (!username) {
+    return RespError(res, CommonErrStatus.PARAM_ERR);
+  }
+  try {
+    const sql = `UPDATE friend SET online_status = ? WHERE username = ?`;
+    await Query(sql, ['offline', username]);
+    await better_chat.del(`token:${username}`);
+    return RespSuccess(res);
+  } catch (err) {
+    return RespError(res, CommonErrStatus.SERVER_ERR);
+  }
+};
+
 module.exports = {
-  login
+  login,
+  logout
 };

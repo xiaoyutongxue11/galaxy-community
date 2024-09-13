@@ -4,5 +4,6 @@ const auth = require('../../service/auth/index');
 
 module.exports = () => {
   router.post('/login', auth.login);
+  router.post('/logout', auth.logout);
   return router;
 };

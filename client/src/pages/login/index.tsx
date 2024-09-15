@@ -40,7 +40,7 @@ const Login = () => {
 						name="username"
 						rules={[{ required: true, message: '请输入您的用户名' }]}
 					>
-						<Input />
+						<Input style={{ background: 'transparent' }} />
 					</Form.Item>
 
 					<Form.Item<FieldType>
@@ -48,7 +48,7 @@ const Login = () => {
 						name="password"
 						rules={[{ required: true, message: '请输入您的密码' }]}
 					>
-						<Input.Password />
+						<Input.Password style={{ background: 'transparent' }} />
 					</Form.Item>
 
 					<Form.Item<FieldType>
@@ -60,7 +60,7 @@ const Login = () => {
 					</Form.Item>
 
 					<Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-						<Button type="primary" htmlType="submit">
+						<Button type="primary" htmlType="submit" className={styles.loginBtn}>
 							登录
 						</Button>
 					</Form.Item>

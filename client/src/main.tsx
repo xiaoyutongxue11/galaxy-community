@@ -6,19 +6,19 @@ import RouteRender from './router';
 import '@/assets/styles/global.less';
 
 createRoot(document.getElementById('root')!).render(
-	<BrowserRouter>
-		<ConfigProvider
-			theme={{
-				token: {
-					colorPrimary: '#f759ab',
-					colorText: '#FFF'
-				}
-			}}
-			locale={zhCN}
-		>
-			<App>
-				<RouteRender />
-			</App>
-		</ConfigProvider>
-	</BrowserRouter>
+  <BrowserRouter>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: '#f759ab',
+          colorText: '#FFF'
+        }
+      }}
+      locale={zhCN}
+    >
+      <App>
+        <RouteRender />
+      </App>
+    </ConfigProvider>
+  </BrowserRouter>
 );

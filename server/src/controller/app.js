@@ -46,5 +46,5 @@ app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 // 注册路由
 const indexRouter = require('./routes/auth')();
 app.use('', cors); // 防止浏览器的预检请求导致控制台报跨域错误
-app.use('/auth', cors, indexRouter);
+app.use('/api/chat/auth', cors, indexRouter);
 module.exports = app;

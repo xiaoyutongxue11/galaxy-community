@@ -37,7 +37,6 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRemember, setIsRemember] = useState(false);
   const [loginFormInstance] = Form.useForm<ILoginRequest>();
-  const [isForget, setIsForget] = useState(false);
 
   const handleSubmit: FormProps<ILoginRequest>['onFinish'] = async (values: ILoginRequest) => {
     const { username, password } = values;
@@ -116,18 +115,10 @@ const Login = () => {
           autoComplete="off"
         >
           <Form.Item name="username" rules={[{ required: true, message: '请输入您的用户名' }]}>
-            <Input
-              maxLength={255}
-              style={{ background: 'transparent' }}
-              placeholder="请输入用户名"
-            />
+            <Input style={{ background: 'transparent' }} placeholder="请输入用户名" />
           </Form.Item>
           <Form.Item name="password" rules={[{ required: true, message: '请输入您的密码' }]}>
-            <Input.Password
-              maxLength={255}
-              style={{ background: 'transparent' }}
-              placeholder="请输入密码"
-            />
+            <Input.Password style={{ background: 'transparent' }} placeholder="请输入密码" />
           </Form.Item>
           <Form.Item>
             <div className={styles.toRegister}>

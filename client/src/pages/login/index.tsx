@@ -2,6 +2,11 @@ import { Button, Checkbox, Form, Input } from 'antd';
 import type { FormProps } from 'antd';
 import styles from './index.module.less';
 import Logo from '../../assets/img/star.png';
+import { generateRandomString, encrypt, decrypt } from '@/utils/encryption';
+import { tokenStorage, userStorage } from '@/utils/storage';
+import useShowMessage from '@/hooks/useShowMessage';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 type FieldType = {
   username?: string;
@@ -9,15 +14,45 @@ type FieldType = {
   remember?: string;
 };
 
-const onFinish: FormProps<FieldType>['onFinish'] = values => {
-  console.log('Success:', values);
+const getUserInfo = async () => {
+  const userInfo = localStorage.getItem('userInfo');
+  const authToken = localStorage.getItem('authToken');
+  if (userInfo && authToken) {
+    const info = JSON.parse(await decrypt(userInfo));
+    const token = await decrypt(authToken);
+    return {
+      info,
+      token
+    };
+  }
+  return null;
 };
-
-const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = errorInfo => {
-  console.log('Failed:', errorInfo);
-};
-
 const Login = () => {
+  const showMessage = useShowMessage();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const handleSubmit: FormProps<FieldType>['onFinish'] = async values => {
+    const { username, password } = values;
+    const res = await getUserInfo();
+    if (res && res.info.username === username) {
+      tokenStorage.setItem(res.token);
+      userStorage.setItem(JSON.stringify(res.info));
+      showMessage('success', '登录成功');
+      navigate('/');
+      return;
+    } else {
+      setLoading(true);
+      try {
+        const params = { username, password };
+      } catch {}
+    }
+  };
+
+  const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = errorInfo => {
+    console.log('Failed:', errorInfo);
+  };
+
+  const handleRemember = () => {};
   return (
     <div className={styles.bgContainer}>
       <div className={styles.loginContainer}>
@@ -29,7 +64,7 @@ const Login = () => {
           name="basic"
           style={{ maxWidth: 600 }}
           initialValues={{ remember: true }}
-          onFinish={onFinish}
+          onFinish={handleSubmit}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
@@ -67,7 +102,7 @@ const Login = () => {
           <Form.Item<FieldType>>
             <div className={styles.loginTools}>
               <div>
-                <Checkbox>
+                <Checkbox onChange={handleRemember}>
                   <span>记住密码</span>
                 </Checkbox>
               </div>

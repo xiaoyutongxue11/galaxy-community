@@ -57,7 +57,6 @@ const Login = () => {
         if (res.code === HttpStatus.SUCCESS && res.data) {
           const { info, token } = res.data;
           showMessage('success', '登录成功');
-          setIsLoading(false);
           tokenStorage.setItem(token);
           userStorage.setItem(JSON.stringify(info));
           if (isRemember) {
@@ -67,10 +66,10 @@ const Login = () => {
           navigate('/');
         } else {
           showMessage('error', res.message);
-          setIsLoading(false);
         }
       } catch {
         showMessage('error', '登录失败，请重试');
+      } finally {
         setIsLoading(false);
       }
     }

@@ -1,0 +1,33 @@
+@import '@/assets/styles/variables.less';
+.bgContainer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background: linear-gradient(to right top, #10239e, #391085, #9e1068);
+  .loginContainer {
+    width: 25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 3rem 5rem;
+    background-color: @bg-filter-color;
+    border-radius: 2rem;
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      color: white;
+      img {
+        width: 3rem;
+        height: 3rem;
+      }
+    }
+  }
+}

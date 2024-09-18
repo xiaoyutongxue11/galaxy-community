@@ -1,0 +1,45 @@
+@import '@/assets/styles/variables.less';
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  :global {
+    .ant-form-item {
+      width: 100%;
+      .ant-form-item-control-input-content {
+        display: flex;
+        justify-content: center;
+      }
+      .ant-input {
+        color: white;
+      }
+    }
+  }
+  .toRegister {
+    display: flex;
+    justify-content: flex-end;
+    color: white;
+    .registerTitle {
+      color: @primary-antd-color;
+      cursor: pointer;
+    }
+  }
+  .loginBtn {
+    width: 40%;
+  }
+  .loginTools {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    span {
+      color: white;
+    }
+    .rightTool {
+      cursor: pointer;
+      color: @primary-antd-color;
+    }
+  }
+}

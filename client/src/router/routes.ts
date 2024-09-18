@@ -1,7 +1,8 @@
 // import { lazy } from "react";
-import Login from '@/pages/login';
-import Register from '@/pages/register';
-import ForgetPassword from '@/pages/forgetPassword';
+import AuthHome from '@/pages/authHome';
+import LoginForm from '@/pages/authHome/components/LoginForm';
+import RegisterForm from '@/pages/authHome/components/RegisterForm';
+import ForgetPasswordForm from '@/pages/authHome/components/ForgetPasswordForm';
 
 export interface IRouter {
   name?: string;
@@ -13,15 +14,25 @@ export interface IRouter {
 
 export const router: Array<IRouter> = [
   {
-    path: '/login',
-    component: Login
-  },
-  {
-    path: '/register',
-    component: Register
-  },
-  {
-    path: '/forgetPassword',
-    component: ForgetPassword
+    path: '/authHome',
+    component: AuthHome,
+    children: [
+      {
+        path: '',
+        component: LoginForm
+      },
+      {
+        path: 'loginForm',
+        component: LoginForm
+      },
+      {
+        path: 'registerForm',
+        component: RegisterForm
+      },
+      {
+        path: 'forgetPasswordForm',
+        component: ForgetPasswordForm
+      }
+    ]
   }
 ];

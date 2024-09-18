@@ -1,7 +1,6 @@
 import { Button, Checkbox, Form, Input } from 'antd';
 import type { FormProps } from 'antd';
-import styles from './index.module.less';
-import Logo from '../../assets/img/star.png';
+import styles from './form.module.less';
 import { generateRandomString, encrypt, decrypt } from '@/utils/encryption';
 import { tokenStorage, userStorage } from '@/utils/storage';
 import useShowMessage from '@/hooks/useShowMessage';
@@ -31,7 +30,7 @@ const getUserInfo = async () => {
   }
   return null;
 };
-const Login = () => {
+const LoginForm = () => {
   const showMessage = useShowMessage();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -100,59 +99,46 @@ const Login = () => {
     });
   }, []);
   return (
-    <div className={styles.bgContainer}>
-      <div className={styles.loginContainer}>
-        <div className={styles.title}>
-          <img src={Logo} alt="logo" />
-          <h2>Galaxy Community</h2>
+    <Form
+      name="basic"
+      style={{ maxWidth: 600 }}
+      initialValues={{ remember: true }}
+      onFinish={handleSubmit}
+      autoComplete="off"
+    >
+      <Form.Item name="username" rules={[{ required: true, message: '请输入您的用户名' }]}>
+        <Input style={{ background: 'transparent' }} placeholder="请输入用户名" />
+      </Form.Item>
+      <Form.Item name="password" rules={[{ required: true, message: '请输入您的密码' }]}>
+        <Input.Password style={{ background: 'transparent' }} placeholder="请输入密码" />
+      </Form.Item>
+      <Form.Item>
+        <div className={styles.toRegister}>
+          没有账号？
+          <Link to="/authHome/registerForm" className={styles.registerTitle}>
+            去注册
+          </Link>
         </div>
-        <Form
-          name="basic"
-          style={{ maxWidth: 600 }}
-          initialValues={{ remember: true }}
-          onFinish={handleSubmit}
-          autoComplete="off"
-        >
-          <Form.Item name="username" rules={[{ required: true, message: '请输入您的用户名' }]}>
-            <Input style={{ background: 'transparent' }} placeholder="请输入用户名" />
-          </Form.Item>
-          <Form.Item name="password" rules={[{ required: true, message: '请输入您的密码' }]}>
-            <Input.Password style={{ background: 'transparent' }} placeholder="请输入密码" />
-          </Form.Item>
-          <Form.Item>
-            <div className={styles.toRegister}>
-              没有账号？
-              <Link to="/register" className={styles.registerTitle}>
-                去注册
-              </Link>
-            </div>
-          </Form.Item>
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className={styles.loginBtn}
-              loading={isLoading}
-            >
-              登录
-            </Button>
-          </Form.Item>
-          <Form.Item>
-            <div className={styles.loginTools}>
-              <div>
-                <Checkbox onChange={handleRemember} checked={isRemember}>
-                  <span>记住密码</span>
-                </Checkbox>
-              </div>
-              <Link to="/forgetPassword" className={styles.rightTool}>
-                忘记密码？
-              </Link>
-            </div>
-          </Form.Item>
-        </Form>
-      </div>
-    </div>
+      </Form.Item>
+      <Form.Item>
+        <Button type="primary" htmlType="submit" className={styles.loginBtn} loading={isLoading}>
+          登录
+        </Button>
+      </Form.Item>
+      <Form.Item>
+        <div className={styles.loginTools}>
+          <div>
+            <Checkbox onChange={handleRemember} checked={isRemember}>
+              <span>记住密码</span>
+            </Checkbox>
+          </div>
+          <Link to="/forgetPassword" className={styles.rightTool}>
+            忘记密码？
+          </Link>
+        </div>
+      </Form.Item>
+    </Form>
   );
 };
 
-export default Login;
+export default LoginForm;

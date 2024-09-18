@@ -1,5 +1,5 @@
 import { Route, Navigate, Routes } from 'react-router-dom';
-import { IRouter, router } from './config';
+import { IRouter, router } from './routes';
 import { Suspense, useMemo } from 'react';
 
 const RouteRender = () => {

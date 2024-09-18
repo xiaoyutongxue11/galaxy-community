@@ -1,4 +1,4 @@
-import { ILoginRequest, ILoginResponse } from 'types/login';
+import { ILoginRequest, ILoginResponse } from '@/types/login';
 import Request from '@/http/request';
 
 export const loginAPI = async (data: ILoginRequest) => {

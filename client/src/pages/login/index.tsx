@@ -8,7 +8,7 @@ import useShowMessage from '@/hooks/useShowMessage';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { loginAPI } from '@/api/login';
-import { ILoginRequest, IUserInfo } from 'types/login';
+import { ILoginRequest, IUserInfo } from '@/types/login';
 import { HttpStatus } from '@/http/constant';
 
 // 记住密码（将用户信息和 token 加密存储在本地）

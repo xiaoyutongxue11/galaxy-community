@@ -10,8 +10,7 @@ createRoot(document.getElementById('root')!).render(
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: '#f759ab',
-          colorText: '#FFF'
+          colorPrimary: '#f759ab'
         }
       }}
       locale={zhCN}

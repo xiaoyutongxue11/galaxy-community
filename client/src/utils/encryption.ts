@@ -27,7 +27,7 @@ export const encrypt = async (data: string) => {
   );
   return Array.from(new Uint8Array(cipher))
     .map(b => b.toString(16).padStart(2, '0'))
-    .join(' ');
+    .join('');
 };
 
 // AES 解密函数
@@ -46,5 +46,5 @@ export const decrypt = async (str: string) => {
 export const generateRandomString = () => {
   const randomValues = new Uint32Array(4);
   crypto.getRandomValues(randomValues);
-  return Array.from(randomValues, decimal => decimal.toString(16)).join(' ');
+  return Array.from(randomValues, decimal => decimal.toString(16)).join('');
 };

@@ -23,12 +23,19 @@ const rememberUser = async (info: IUserInfo, token: string) => {
 const getUserInfo = async () => {
   const userInfo = localStorage.getItem('userInfo');
   const authToken = localStorage.getItem('authToken');
-  if (userInfo && authToken) {
-    const info = JSON.parse(await decrypt(userInfo));
-    const token = await decrypt(authToken);
-    return { info, token };
+  console.log(userInfo, authToken);
+  try {
+    if (userInfo && authToken) {
+      const info = JSON.parse(await decrypt(userInfo));
+      const token = await decrypt(authToken);
+      console.log(info, 111);
+      console.log(token, 222);
+      return { info, token };
+    }
+  } catch (error) {
+    console.error('Error decrypting user info:', error);
+    return null; // 如果解析或解密失败，返回null
   }
-  return null;
 };
 const LoginForm = () => {
   const showMessage = useShowMessage();
@@ -40,6 +47,7 @@ const LoginForm = () => {
   const handleSubmit: FormProps<ILoginRequest>['onFinish'] = async (values: ILoginRequest) => {
     const { username, password } = values;
     const res = await getUserInfo();
+    console.log(res);
     if (res && res.info.username === username) {
       // 在 sessionStorage 中再存储一遍用户信息
       // 原因：localStorage 中的数据是长期存储，而 sessionStorage 中的数据会在浏览器关闭后自动删除
@@ -86,7 +94,9 @@ const LoginForm = () => {
 
   // 初始化时判断本地是否记住了密码，有则将信息填充到框中，同时将记住密码勾选上
   useEffect(() => {
-    getUserInfo().then(res => {
+    const checkIsRemember = async () => {
+      const res = await getUserInfo();
+      console.log(res);
       if (res) {
         loginFormInstance.setFieldsValue({
           username: res.info.username,
@@ -96,8 +106,10 @@ const LoginForm = () => {
       } else {
         setIsRemember(false);
       }
-    });
+    };
+    checkIsRemember();
   }, []);
+
   return (
     <Form
       name="basic"
@@ -105,6 +117,7 @@ const LoginForm = () => {
       initialValues={{ remember: true }}
       onFinish={handleSubmit}
       autoComplete="off"
+      form={loginFormInstance}
     >
       <Form.Item name="username" rules={[{ required: true, message: '请输入您的用户名' }]}>
         <Input style={{ background: 'transparent' }} placeholder="请输入用户名" />

@@ -1,8 +1,9 @@
-// import { lazy } from "react";
 import AuthHome from '@/pages/authHome';
 import LoginForm from '@/pages/authHome/components/LoginForm';
 import RegisterForm from '@/pages/authHome/components/RegisterForm';
 import ForgetPasswordForm from '@/pages/authHome/components/ForgetPasswordForm';
+import Home from '@/pages/home';
+import { lazy } from 'react';
 
 export interface IRouter {
   name?: string;
@@ -13,6 +14,10 @@ export interface IRouter {
 }
 
 export const router: Array<IRouter> = [
+  {
+    path: '/',
+    component: Home
+  },
   {
     path: '/authHome',
     component: AuthHome,
@@ -34,5 +39,9 @@ export const router: Array<IRouter> = [
         component: ForgetPasswordForm
       }
     ]
+  },
+  {
+    path: '*',
+    component: lazy(() => import('@/pages/error/index'))
   }
 ];

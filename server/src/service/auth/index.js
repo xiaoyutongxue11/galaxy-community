@@ -73,7 +73,6 @@ const login = async (req, res, next) => {
  */
 const logout = async (req, res, next) => {
   const { username } = req.body;
-  console.log(username);
   if (!username) {
     return RespError(res, CommonErrStatus.PARAM_ERR);
   }

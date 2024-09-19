@@ -132,7 +132,7 @@ const LoginForm = () => {
               <span>记住密码</span>
             </Checkbox>
           </div>
-          <Link to="/forgetPassword" className={styles.rightTool}>
+          <Link to="/authHome/forgetPasswordForm" className={styles.rightTool}>
             忘记密码？
           </Link>
         </div>

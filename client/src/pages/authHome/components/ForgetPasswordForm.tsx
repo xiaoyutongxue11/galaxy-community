@@ -25,9 +25,9 @@ const ForgetPasswordForm = () => {
     try {
       const params = { username, password, phone };
       const res = await forgetPasswordAPI(params);
-      if (res.code === HttpStatus.SUCCESS && res.data) {
+      if (res.code === HttpStatus.SUCCESS) {
         showMessage('success', '密码修改成功');
-        navigate('/login');
+        navigate('/authHome/loginForm');
       } else {
         showMessage('error', res.message);
       }

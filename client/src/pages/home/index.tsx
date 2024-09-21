@@ -1,7 +1,6 @@
-import React from 'react';
-
+import BgContainer from '@/components/bgContainer';
 const Home = () => {
-  return <div>首页</div>;
+  return <BgContainer>首页</BgContainer>;
 };
 
 export default Home;

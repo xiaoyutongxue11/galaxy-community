@@ -1,6 +1,7 @@
 import { Button, Empty } from 'antd';
 import styles from './error.module.less';
 import { useNavigate } from 'react-router-dom';
+import BgContainer from '@/components/bgContainer';
 
 const Error = () => {
   const navigate = useNavigate();
@@ -8,12 +9,12 @@ const Error = () => {
     navigate(-1);
   };
   return (
-    <div className={styles.bgContainer}>
+    <BgContainer>
       <Empty description={false} />
       <div className={styles.status}>404</div>
       <div className={styles.message}>糟糕，走丢了~</div>
       <Button onClick={handleBack}>返回上一页</Button>
-    </div>
+    </BgContainer>
   );
 };
 

@@ -27,7 +27,7 @@ const RegisterForm = () => {
       const res = await registerAPI(params);
       if (res.code === HttpStatus.SUCCESS && res.data) {
         showMessage('success', '注册成功');
-        navigate('/login');
+        navigate('/authHome/loginForm');
       } else {
         showMessage('error', res.message);
       }

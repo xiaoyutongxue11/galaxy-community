@@ -1,11 +1,11 @@
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const Redis = require('ioredis');
+
 const { RespError, RespData, RespSuccess } = require('../../utils/resp');
 const { CommonErrStatus, AuthErrStatus } = require('../../utils/error');
 const { Query } = require('../../utils/query');
 const { secretKey } = require('../../utils/authenticate');
-const { name } = require('body-parser');
 const better_chat = new Redis();
 
 const login = async (req, res, next) => {
@@ -143,8 +143,37 @@ const register = async (req, res, next) => {
   }
 };
 
+/**
+ * 忘记密码
+ */
+const forgetPassword = async (req, res) => {
+  const { username, phone, password } = req.body;
+  if (!(username && phone && password)) {
+    return RespError(res, CommonErrStatus.PARAM_ERR);
+  }
+  try {
+    const sql_check = `SELECT username,phone,salt FROM user WHERE username = ? AND phone = ?`;
+    const results_check = await Query(sql_check, [username, phone]);
+    // 判断手机号和用户名是否存在
+    if (results_check.length === 0) {
+      return RespError(res, AuthErrStatus.USER_NOTEXIT_ERR);
+    }
+    const salt = results_check[0].salt;
+    const M = salt.slice(0, 3) + password + salt.slice(3);
+    const hash = crypto.createHash('md5').update(M).digest('hex');
+    const sql_set = `UPDATE user SET password = ? WHERE username = ?`;
+    const result_set = await Query(sql_set, [hash, username]);
+    if (result_set.affectedRows === 1) {
+      return RespSuccess(res);
+    }
+  } catch {
+    return RespError(res, CommonErrStatus.SERVER_ERR);
+  }
+};
+
 module.exports = {
   login,
   logout,
-  register
+  register,
+  forgetPassword
 };

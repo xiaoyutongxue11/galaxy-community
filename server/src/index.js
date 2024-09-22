@@ -2,6 +2,8 @@
 
 /**
  * 定义全局登录用户空间
+ * LoginRooms通常用于存储所有在线用户的WebSocket连接信息
+ * LoginRooms 是一个全局对象，用于存储所有已登录用户的WebSocket连接信息。每个用户的记录包含一个ws属性（WebSocket连接对象）和一个status属性（表示用户是否正在音视频通话中）。
  */
 global.LoginRooms = {};
 

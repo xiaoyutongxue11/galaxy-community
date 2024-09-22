@@ -6,6 +6,7 @@ const { RespError, RespData, RespSuccess } = require('../../utils/resp');
 const { CommonErrStatus, AuthErrStatus } = require('../../utils/error');
 const { Query } = require('../../utils/query');
 const { secretKey } = require('../../utils/authenticate');
+const { NotificationUser } = require('../../utils/notification');
 const better_chat = new Redis();
 
 const login = async (req, res, next) => {
@@ -171,9 +172,40 @@ const forgetPassword = async (req, res) => {
   }
 };
 
+/**
+ * 登录成功后初始化用户的通知管道（websocket链接信息全局存储），用于通知用户好友列表的更新
+ */
+const initUserNotification = async (ws, req) => {
+  const url = req.url.split('?')[1];
+  const params = new URLSearchParams(url);
+  const curUsername = params.get('username');
+  LoginRooms[curUsername] = {
+    ws,
+    status: false //status：用户是否正在进行视频通话
+  };
+  // 通知当前登录的所有好友进行好友列表更新
+  // 目前是对所有已登录的好友进行通知更新
+  // 后续可以优化为：对当前登录的用户的好友且是已登录的好友进行通知
+  for (const username in LoginRooms) {
+    if (username === curUsername) continue;
+    NotificationUser({ receiver_username: username, name: 'friendList' });
+  }
+  // 监听 websocket 关闭事件（用户关闭页面或者退出登录）
+  ws.on('close', () => {
+    if (LoginRooms[curUsername]) {
+      delete LoginRooms[curUsername];
+      // 通知当前登录的所有好友进行好友列表更新
+      for (const username in LoginRooms) {
+        NotificationUser({ receiver_username: username, name: 'friendList' });
+      }
+    }
+  });
+};
+
 module.exports = {
   login,
   logout,
   register,
-  forgetPassword
+  forgetPassword,
+  initUserNotification
 };

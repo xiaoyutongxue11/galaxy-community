@@ -7,5 +7,6 @@ module.exports = () => {
   router.post('/logout', auth.logout);
   router.post('/register', auth.register);
   router.post('/forgetPassword', auth.forgetPassword);
+  router.ws('/userChannel', auth.initUserNotification);
   return router;
 };

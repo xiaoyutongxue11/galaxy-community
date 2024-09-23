@@ -123,6 +123,22 @@ const getFriendList = async (req, res) => {
 };
 
 /**
+ * 获取用户的好友分组列表
+ */
+const getFriendGroupList = async (req, res) => {
+  const user_id = req.user.id;
+  if (!user_id) {
+    return RespError(res, CommonErrStatus.PARAM_ERR);
+  }
+  try {
+    const sql = `SELECT * FROM friend_group WHERE user_id=?`;
+    const results = await Query(sql, [user_id]);
+    return RespData(res, results);
+  } catch {
+    return RespError(res, CommonErrStatus.SERVER_ERR);
+  }
+};
+/**
  * 创建好友分组
  */
 const createFriendGroup = async (req, res) => {
@@ -144,5 +160,6 @@ const createFriendGroup = async (req, res) => {
 module.exports = {
   addFriend,
   getFriendList,
-  createFriendGroup
+  createFriendGroup,
+  getFriendGroupList
 };

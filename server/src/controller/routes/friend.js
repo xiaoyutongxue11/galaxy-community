@@ -5,6 +5,7 @@ const authenticate = require('../../utils/authenticate');
 
 module.exports = () => {
   router.get('/friendList', authenticate.authenticateToken, friend.getFriendList);
+  router.get('/groupList', authenticate.authenticateToken, friend.getFriendGroupList);
   router.post('/addFriend', authenticate.authenticateToken, friend.addFriend);
   router.post('/createFriendGroup', authenticate.authenticateToken, friend.createFriendGroup);
   return router;

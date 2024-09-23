@@ -122,7 +122,27 @@ const getFriendList = async (req, res) => {
   }
 };
 
+/**
+ * 创建好友分组
+ */
+const createFriendGroup = async (req, res) => {
+  const friend_group = req.body;
+  if (!friend_group) {
+    return RespError(res, CommonErrStatus.PARAM_ERR);
+  }
+  try {
+    const sql = `INSERT INTO friend_group SET ?`;
+    const results = await Query(sql, friend_group);
+    if (results.affectedRows === 1) {
+      return RespSuccess(res);
+    }
+  } catch {
+    return RespError(res, CommonErrStatus.SERVER_ERR);
+  }
+};
+
 module.exports = {
   addFriend,
-  getFriendList
+  getFriendList,
+  createFriendGroup
 };

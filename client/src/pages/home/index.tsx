@@ -1,6 +1,11 @@
 import BgContainer from '@/components/bgContainer';
+import Container from '../container';
 const Home = () => {
-  return <BgContainer>首页</BgContainer>;
+  return (
+    <BgContainer>
+      <Container />
+    </BgContainer>
+  );
 };
 
 export default Home;

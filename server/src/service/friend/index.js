@@ -123,6 +123,48 @@ const getFriendList = async (req, res) => {
 };
 
 /**
+ * 根据好友 id 获取好友信息的基本逻辑
+ * 1、既要获取完整的好友个人信息，又要获取好友所在的分组
+ * 2、需要联表查询
+ */
+const getFriendById = async (req, res) => {
+  const { id } = req.query;
+  if (!id) {
+    return RespError(res, CommonErrStatus.PARAM_ERR);
+  }
+  try {
+    const sql = `SELECT 
+				f.id AS friend_id,
+				f.user_id AS friend_user_id,
+				f.online_status,
+				f.remark,
+				f.group_id,
+				fg.name AS group_name,
+				f.room,
+				f.unread_msg_count,
+				u.username,
+				u.avatar,
+				u.phone,
+				u.name,
+				u.signature
+			FROM
+				friend AS f
+			JOIN
+				user AS u ON f.user_id = u.id
+			JOIN
+				friend_group AS fg ON f.group_id = fg.id
+			WHERE
+				f.id = ?`;
+    const results = await Query(sql, [id]);
+    if (results.length !== 0) {
+      return RespData(res, results[0]);
+    }
+  } catch {
+    return RespData(res, CommonErrStatus.SERVER_ERR);
+  }
+};
+
+/**
  * 获取用户的好友分组列表
  */
 const getFriendGroupList = async (req, res) => {
@@ -161,5 +203,6 @@ module.exports = {
   addFriend,
   getFriendList,
   createFriendGroup,
-  getFriendGroupList
+  getFriendGroupList,
+  getFriendById
 };

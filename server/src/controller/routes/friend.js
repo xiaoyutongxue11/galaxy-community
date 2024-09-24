@@ -7,6 +7,7 @@ module.exports = () => {
   router.get('/friendList', authenticate.authenticateToken, friend.getFriendList);
   router.get('/friend_id', authenticate.authenticateToken, friend.getFriendById);
   router.get('/groupList', authenticate.authenticateToken, friend.getFriendGroupList);
+  router.get('/search_user', authenticate.authenticateToken, friend.searchUser);
   router.post('/addFriend', authenticate.authenticateToken, friend.addFriend);
   router.post('/createFriendGroup', authenticate.authenticateToken, friend.createFriendGroup);
   return router;

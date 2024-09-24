@@ -180,6 +180,53 @@ const getFriendGroupList = async (req, res) => {
     return RespError(res, CommonErrStatus.SERVER_ERR);
   }
 };
+
+/**
+ * 查询用户
+ * 1、根据用户名查询到用户表中查询，模糊查询
+ * 2、在查询的数据中，判断是否存在已经是好友的现象
+ * 3、将好友和非好友分开，非好友才能添加
+ */
+const searchUser = async (req, res) => {
+  const sender = req.user;
+  const { username } = req.query;
+  if (!(sender && username)) {
+    return RespError(res, CommonErrStatus.PARAM_ERR);
+  }
+  try {
+    const sql_get_user = `SELECT * FROM user WHERE username LIKE ?`;
+    const results_user = await Query(sql_get_user, [`%${username}%`]);
+    // 获取当前用户的所有好友
+    const friends = await getFriendBuyUser(sender.id);
+    const searchList = [];
+    if (results_user.length !== 0) {
+      for (const userInfo of results_user) {
+        let flag = false;
+        if (userInfo.username === sender.username) {
+          continue;
+        }
+        for (const friend of friends) {
+          if (friend.username === userInfo.username) {
+            flag = true;
+            break;
+          }
+        }
+        const { name, username, id, avatar } = userInfo;
+        searchList.push({
+          name,
+          username,
+          id,
+          avatar,
+          status: flag //是否是好友
+        });
+      }
+    }
+    return RespData(res, searchList);
+  } catch {
+    return RespError(res, CommonErrStatus.SERVER_ERR);
+  }
+};
+
 /**
  * 创建好友分组
  */
@@ -204,5 +251,6 @@ module.exports = {
   getFriendList,
   createFriendGroup,
   getFriendGroupList,
-  getFriendById
+  getFriendById,
+  searchUser
 };

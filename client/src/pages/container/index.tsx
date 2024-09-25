@@ -4,10 +4,11 @@ const Container = () => {
   return (
     <div className={styles.container}>
       <Header />
-      <div>
-        <div className="left"></div>
-        <div className="center"></div>
-        <div className="right"></div>
+      <div className={styles.main}>
+        <div className={styles.menu}>11</div>
+        <div className={styles.left}>22</div>
+        <div className={styles.center}>33</div>
+        <div className={styles.right}>44</div>
       </div>
     </div>
   );

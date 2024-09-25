@@ -7,4 +7,42 @@
   padding: 1rem;
   color: white;
   min-width: 400px;
+  display: flex;
+  flex-direction: column;
+  .main {
+    flex: 1;
+    display: flex;
+    .menu {
+      width: 5%;
+      min-width: 3rem;
+      background-color: white;
+    }
+    .left {
+      width: 22%;
+      background-color: antiquewhite;
+    }
+    .center {
+      width: 50%;
+      background-color: aqua;
+    }
+    .right {
+      width: 23%;
+      background-color: aquamarine;
+    }
+  }
+}
+@media (max-width: 800px) {
+  .container {
+    .main {
+      .left {
+        width: 32%;
+      }
+      .center {
+        width: 63%;
+      }
+      .right {
+        display: none;
+      }
+    }
+  }
 }

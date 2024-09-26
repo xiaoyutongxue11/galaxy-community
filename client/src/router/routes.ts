@@ -2,8 +2,12 @@ import AuthHome from '@/pages/authHome';
 import LoginForm from '@/pages/authHome/components/LoginForm';
 import RegisterForm from '@/pages/authHome/components/RegisterForm';
 import ForgetPasswordForm from '@/pages/authHome/components/ForgetPasswordForm';
-import Home from '@/pages/home';
+// import Home from '@/pages/home';
 import { lazy } from 'react';
+import Container from '@/pages/container';
+import Chat from '@/pages/container/components/chat';
+import Contacts from '@/pages/container/components/contacts';
+import Home from '@/pages/home';
 
 export interface IRouter {
   name?: string;
@@ -14,10 +18,6 @@ export interface IRouter {
 }
 
 export const router: Array<IRouter> = [
-  {
-    path: '/',
-    component: Home
-  },
   {
     path: '/authHome',
     component: AuthHome,
@@ -37,6 +37,20 @@ export const router: Array<IRouter> = [
       {
         path: 'forgetPasswordForm',
         component: ForgetPasswordForm
+      }
+    ]
+  },
+  {
+    path: '/',
+    component: Home,
+    children: [
+      {
+        path: 'chat',
+        component: Chat
+      },
+      {
+        path: 'contacts',
+        component: Contacts
       }
     ]
   },

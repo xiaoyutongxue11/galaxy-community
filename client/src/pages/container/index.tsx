@@ -2,6 +2,8 @@ import styles from './index.module.less';
 import Header from './components/header';
 import { MenuIconList } from '@/assets/icons';
 import { useState } from 'react';
+import Chat from './components/chat';
+import { Outlet } from 'react-router-dom';
 
 const Container = () => {
   // 后续使用路径，只要记忆了路径，这个也不会变
@@ -18,6 +20,7 @@ const Container = () => {
             {MenuIconList.map((item, index) => {
               return (
                 <li
+                  key={item.key}
                   onClick={() => handleNavigate(index)}
                   className={`${activeIndex === index ? styles.active : ''}`}
                 >
@@ -27,9 +30,9 @@ const Container = () => {
             })}
           </ul>
         </div>
-        <div className={styles.left}>22</div>
-        <div className={styles.center}>33</div>
-        <div className={styles.right}>44</div>
+        <div className={styles.content}>
+          <Outlet />
+        </div>
       </div>
     </div>
   );

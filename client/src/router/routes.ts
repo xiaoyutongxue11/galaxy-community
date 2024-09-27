@@ -2,9 +2,7 @@ import AuthHome from '@/pages/authHome';
 import LoginForm from '@/pages/authHome/components/LoginForm';
 import RegisterForm from '@/pages/authHome/components/RegisterForm';
 import ForgetPasswordForm from '@/pages/authHome/components/ForgetPasswordForm';
-// import Home from '@/pages/home';
 import { lazy } from 'react';
-import Container from '@/pages/container';
 import Chat from '@/pages/container/components/chat';
 import Contacts from '@/pages/container/components/contacts';
 import Home from '@/pages/home';
@@ -44,6 +42,10 @@ export const router: Array<IRouter> = [
     path: '/',
     component: Home,
     children: [
+      {
+        path: '',
+        component: Chat
+      },
       {
         path: 'chat',
         component: Chat

@@ -26,3 +26,4 @@ export const withAuthRoute = (Component: React.ElementType) => {
   };
   return WrappedComponent;
 };
+  

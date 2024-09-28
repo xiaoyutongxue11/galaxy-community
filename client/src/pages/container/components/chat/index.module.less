@@ -1,6 +1,49 @@
 @import '@/assets/styles/variables.less';
 .left {
   width: 25%;
+  display: flex;
+  flex-direction: column;
+  .search {
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: 1px solid white;
+    input {
+      color: white;
+    }
+  }
+  .list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    .item {
+      width: 100%;
+      height: 3rem;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin: 0;
+      img {
+        margin: 0 0.3rem;
+      }
+      .info {
+        height: 3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        p {
+          margin: 0;
+          font-size: 12px;
+        }
+      }
+    }
+    .item:hover {
+      background-color: rgba(@primary-antd-color, 0.5);
+    }
+  }
 }
 .center {
   width: 50%;

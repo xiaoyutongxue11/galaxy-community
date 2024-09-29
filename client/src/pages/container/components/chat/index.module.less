@@ -1,6 +1,7 @@
 @import '@/assets/styles/variables.less';
 .left {
   width: 25%;
+  height: 30rem;
   display: flex;
   flex-direction: column;
   .search {
@@ -16,33 +17,59 @@
   }
   .list {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    .item {
+    overflow: auto;
+    overflow-y: scroll;
+    overflow: overlay;
+    .listItem {
       width: 100%;
       height: 3rem;
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      margin: 0;
+      padding: 0.3rem;
       img {
-        margin: 0 0.3rem;
+        width: 2rem;
+        height: 2rem;
+        margin-right: 0.3rem;
       }
       .info {
+        width: 100%;
         height: 3rem;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+        font-size: 12px;
         p {
+          width: 8rem;
           margin: 0;
-          font-size: 12px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .infoTop {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          p {
+            font-weight: bold;
+          }
+        }
+        .infoBottom {
+          width: 10rem;
+        }
+        .infoBottom,
+        .infoTop span {
+          color: @font-color-lightest;
+          font-size: 10px;
         }
       }
     }
-    .item:hover {
+    .listItem:hover {
       background-color: rgba(@primary-antd-color, 0.5);
     }
+  }
+  ::-webkit-scrollbar {
+    display: none;
   }
 }
 .center {
@@ -52,15 +79,4 @@
 .right {
   width: 25%;
   background-color: aquamarine;
-}
-@media (max-width: 800px) {
-  .left {
-    width: 35%;
-  }
-  .center {
-    width: 65%;
-  }
-  .right {
-    display: none;
-  }
 }

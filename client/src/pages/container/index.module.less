@@ -1,8 +1,8 @@
 @import '@/assets/styles/variables.less';
 .container {
-  width: 80%;
-  height: 90%;
-  background-color: rgba(0, 0, 0, 0.5);
+  width: 60rem;
+  height: 35rem;
+  background-color: @bg-container-color;
   border-radius: 1rem;
   padding: 1rem;
   color: white;
@@ -13,8 +13,9 @@
     flex: 1;
     display: flex;
     .content {
-      width: 100%;
+      flex: 1;
       display: flex;
+      overflow: hidden;
     }
   }
 }

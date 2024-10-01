@@ -23,7 +23,6 @@ const rememberUser = async (info: IUserInfo, token: string) => {
 const getUserInfo = async () => {
   const userInfo = localStorage.getItem('userInfo');
   const authToken = localStorage.getItem('authToken');
-  console.log(userInfo, authToken);
   try {
     if (userInfo && authToken) {
       const info = JSON.parse(await decrypt(userInfo));
@@ -47,7 +46,6 @@ const LoginForm = () => {
   const handleSubmit: FormProps<ILoginRequest>['onFinish'] = async (values: ILoginRequest) => {
     const { username, password } = values;
     const res = await getUserInfo();
-    console.log(res);
     if (res && res.info.username === username) {
       // 在 sessionStorage 中再存储一遍用户信息
       // 原因：localStorage 中的数据是长期存储，而 sessionStorage 中的数据会在浏览器关闭后自动删除

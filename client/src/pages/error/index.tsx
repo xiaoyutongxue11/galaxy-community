@@ -13,7 +13,9 @@ const Error = () => {
       <Empty description={false} />
       <div className={styles.status}>404</div>
       <div className={styles.message}>糟糕，走丢了~</div>
-      <Button onClick={handleBack}>返回上一页</Button>
+      <Button onClick={handleBack} type="primary">
+        返回上一页
+      </Button>
     </BgContainer>
   );
 };

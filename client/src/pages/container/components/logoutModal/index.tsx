@@ -1,6 +1,7 @@
-import { Modal } from 'antd';
+import { Button, Modal } from 'antd';
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+// import styles from './index.less';
 
 const LogoutModal = forwardRef((props, ref) => {
   const navigate = useNavigate();
@@ -24,10 +25,14 @@ const LogoutModal = forwardRef((props, ref) => {
       open={isModalOpen}
       onOk={handleOk}
       onCancel={handleCancel}
-      okText={'确定'}
-      cancelText={'取消'}
+      wrapClassName="logoutModal"
+      footer={[
+        <Button key="submit" type="primary" onClick={handleOk}>
+          确定
+        </Button>
+      ]}
     >
-      <p>确定退出登录吗？</p>
+      <p style={{ color: '#f759ab' }}>确定退出登录吗？</p>
     </Modal>
   );
 });

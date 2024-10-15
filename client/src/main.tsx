@@ -11,7 +11,7 @@ createRoot(document.getElementById('root')!).render(
       theme={{
         token: {
           colorPrimary: '#f759ab',
-          colorText: '#fff'
+          colorText: '#f759ab'
         }
       }}
       locale={zhCN}

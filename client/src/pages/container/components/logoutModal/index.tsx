@@ -1,7 +1,6 @@
 import { Button, Modal } from 'antd';
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import styles from './index.less';
 
 const LogoutModal = forwardRef((props, ref) => {
   const navigate = useNavigate();
